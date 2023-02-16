@@ -9,6 +9,9 @@ import { SecondActions } from '../components/welcome/SecondAction';
 import { ThirdActions } from '../components/welcome/ThirdActions';
 import { ForthActions } from '../components/welcome/ForthAction';
 import { StartPage } from '../views/StartPage';
+import { ItemList } from '../components/item/ItemList';
+import { ItemCreate } from '../components/item/ItemCreate';
+import { ItemPage } from '../views/ItemPage';
 
 
 export const routes:RouteRecordRaw[] = [
@@ -23,6 +26,13 @@ export const routes:RouteRecordRaw[] = [
             { path: '2',name: "Welcome2", components: {main: Second, footer: SecondActions}, },
             { path: '3',name: "Welcome3", components: {main: Third, footer: ThirdActions}, },
             { path: '4',name: "Welcome4", components: {main: Forth, footer: ForthActions}, },
+        ]
+    },
+    {
+        path: '/items', component: ItemPage,
+        children: [
+          { path: '', component: ItemList },
+          { path: 'create', component: ItemCreate },
         ]
     }
   ]
