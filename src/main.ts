@@ -3,6 +3,7 @@ import {App} from './App'
 import { createRouter , createWebHashHistory } from 'vue-router'
 import { routes } from './route/routes';
 import { history } from './shared/history';
+import '@svgstore'
 
 
   const router = createRouter ({
