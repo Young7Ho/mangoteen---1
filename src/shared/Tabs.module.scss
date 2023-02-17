@@ -12,7 +12,6 @@
         padding: 12px 0;
         background: var(--navbar-bg-end);
         &.selected {
-          background: red;
           position: relative;
           &::after {
             content: "";
