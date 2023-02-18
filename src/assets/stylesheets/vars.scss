@@ -2,6 +2,7 @@
     --number-button-bg-important: #5C33BE;
     --button-bg: #5c33be;
     --number-button-bg: white;
+    --bg: white;
     --button-border-color: #ddd;
     --button-bg-danger: #E10505;
     --button-font-size: 18px;
@@ -9,6 +10,7 @@
     --button-radius: 8px;
     --number-button-text-important:white;
     --button-text: white;
+    --dialog-header-text: white;
     --emoji-nav-text-selected: #333;
     --emoji-nav-text: #999;
     --error-color: #E10505;
@@ -18,6 +20,10 @@
     --input-min-height: 48px;
     --input-radius: var(--button-radius);
     --input-shadow: rgba(0,0,0,0.25);
+    --list-tag-text: #333;
+    --list-amount-text: var(--amount-text);
+    --list-time-text: var(--date-text);
+    --main: #5c33be;
     --navbar-bg-end: var(--welcome-bg-end);
     --navbar-bg-start: var(--welcome-bg-start);
     --navbar-text: white;
@@ -27,6 +33,10 @@
     --overlay-user-text: white;
     --tabs-indicator-bg: rgba(255, 255, 255, 0.5);
     --top-safe-area-height: 24px;
+    --total-bg: #252A43;
+    --total-text: white;
+    --total-income: #FE7275;
+    --total-expenses: #53A867;
     --transition-duration: 0.5s;
     --welcome-bg-end: #8f4cd7;
     --welcome-bg-start: #5d33be;
@@ -36,6 +46,5 @@
     --welcome-text: white;
     --z-index-bottom-nav: 8; 
     --z-index-overlay: 16;
-    --main: #5c33be;
     --tag-bg: #EFEFEF;
   }
