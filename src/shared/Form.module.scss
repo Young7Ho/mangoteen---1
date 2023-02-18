@@ -48,6 +48,9 @@
         flex-grow: 1;
       }
     }
+    &_select {
+      padding: 0 20px 0 0;
+    }
     &_errorHint {
       margin-top: 4px;
       color: var(--error-color);
