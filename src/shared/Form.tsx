@@ -32,6 +32,8 @@ export const FormItem = defineComponent({
     }
   },
   setup: (props, context) => {
+
+    
     const content = computed(() => {
       switch (props.type) {
         case 'text':
@@ -42,7 +44,7 @@ export const FormItem = defineComponent({
         case 'emojiSelect':
           return <EmojiSelect
             modelValue={props.modelValue?.toString()}
-            // onUpdateModelValue={value => context.emit('update:modelValue', value)}
+            onUpdateModelValue={value => context.emit('update:modelValue', value)}
             class={[s.formItem, s.emojiList, s.error]} />
         case 'date':
           return <input />
@@ -50,6 +52,8 @@ export const FormItem = defineComponent({
           return context.slots.default?.()
       }
     })
+
+
     return () => {
       return <div class={s.formRow}>
         <label class={s.formLabel}>
