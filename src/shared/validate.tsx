@@ -26,7 +26,7 @@ interface FData {
                 }
             break
             case 'pattern':
-                if(isEmpty(value) && !rule.regex.test(value!.toString())){
+                if(!isEmpty(value) && !rule.regex.test(value!.toString())){
                     errors[key] = errors[key] ?? []
                     errors[key]?.push(message)
                 }
