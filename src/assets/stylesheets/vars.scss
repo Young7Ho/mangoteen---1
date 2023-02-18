@@ -31,6 +31,7 @@
     --overlay-mask-bg: rgba(0, 0, 0, 0.5);
     --overlay-user-bg: #5C33bE;
     --overlay-user-text: white;
+    --text: #333;
     --tabs-indicator-bg: rgba(255, 255, 255, 0.5);
     --top-safe-area-height: 24px;
     --total-bg: #252A43;
@@ -45,6 +46,9 @@
     --welcome-nav-height: 64px;
     --welcome-text: white;
     --z-index-bottom-nav: 8; 
+    --z-index-navbar: 32;
     --z-index-overlay: 16;
+    --van-overlay-z-index: 64;
     --tag-bg: #EFEFEF;
+    --app-name-text: #7878FF;
   }

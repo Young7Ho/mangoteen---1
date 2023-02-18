@@ -1,5 +1,6 @@
 import { DatetimePicker, Popup } from 'vant';
 import { computed, defineComponent, PropType, ref, VNode } from 'vue';
+import { Button } from './Button';
 import { EmojiSelect } from './EmojiSelect';
 import s from './Form.module.scss';
 import { Time } from './time';
@@ -27,10 +28,13 @@ export const FormItem = defineComponent({
       type: [String, Number]
     },
     type: {
-      type: String as PropType<'text' | 'emojiSelect' | 'date'>,
+      type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode'>,
     },
     error: {
       type: String
+    },
+    placeholder: {
+        type: String
     }
   },
   emits: ['update:modelValue'],
@@ -40,6 +44,7 @@ export const FormItem = defineComponent({
       switch (props.type) {
         case 'text':
           return <input
+            placeholder={props.placeholder}
             value={props.modelValue}
             onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
             class={[s.formItem, s.input]} />
@@ -48,10 +53,18 @@ export const FormItem = defineComponent({
             modelValue={props.modelValue?.toString()}
             onUpdateModelValue={value => context.emit('update:modelValue', value)}
             class={[s.formItem, s.emojiList, s.error]} />
+        case 'validationCode':
+            return <>
+                <input class={[s.formItem, s.input, s.validationCodeInput]} 
+                    placeholder={props.placeholder} />
+                <Button class={[s.formItem, s.button, s.validationCodeButton]}
+                > 发送验证码</Button>
+            </>
         case 'date':
           return <>
             <input 
             readonly={true}
+            placeholder={props.placeholder}
             value={props.modelValue}
             onClick={() => {refDateVisible.value = true}}
             class={[s.formItem,s.Input]} />
@@ -83,7 +96,7 @@ export const FormItem = defineComponent({
           </div>
           {props.error &&
             <div class={s.formItem_errorHint}>
-              <span>{props.error}</span>
+              <span>{props.error ?? '　'}</span>
             </div>
           }
         </label>
