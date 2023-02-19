@@ -6,12 +6,12 @@ import { Button } from '../shared/Button';
 import { Form, FormItem } from '../shared/Form';
 import { http } from '../shared/Http';
 import { Icon } from '../shared/Icon';
-import { validate } from '../shared/validate';
+import { validate, hasError } from '../shared/validate';
 import s from './SignInPage.module.scss';
 export const SignInPage = defineComponent({
   setup: (props, context) => {
     const formData = reactive({
-      email: '',
+      email: '953417678@qq.com',
       code: ''
     })
     const errors = reactive({
@@ -20,7 +20,7 @@ export const SignInPage = defineComponent({
     })
     const refValidationCode = ref<any>()
     const {ref:refDisabled,toggle,on:disabled,off:enable} = useBool(false)
-    const onSubmit = (e: Event) => {
+    const onSubmit = async (e: Event) => {
       console.log('submit');
       
       e.preventDefault()
@@ -32,6 +32,9 @@ export const SignInPage = defineComponent({
         { key: 'email', type: 'pattern', regex: /.+@.+/, message: '必须是邮箱地址' },
         { key: 'code', type: 'required', message: '必填' },
       ]))
+      if(!hasError(errors)) {
+        const response = await http.post('/session',formData)
+      }
     }
     const onError = (error:any) => {
       Object.assign(errors, {
@@ -46,6 +49,7 @@ export const SignInPage = defineComponent({
       throw error
     }
     const onClickSendValidationCode = async() => {
+      disabled()
       const response = await http
           .post('/validation_codes',{ email: formData.email })
           .catch(onError)
@@ -63,6 +67,7 @@ export const SignInPage = defineComponent({
                 <Icon class={s.icon} name="mangosteen" />
                 <h1 class={s.appName}>山竹记账</h1>
               </div>
+              <div>{JSON.stringify(formData)}</div>
               <Form onSubmit={onSubmit}>
                 <FormItem label="邮箱地址" type="text"
                   placeholder='请输入邮箱，然后点击发送验证码'
@@ -75,7 +80,7 @@ export const SignInPage = defineComponent({
                   onClick={onClickSendValidationCode}
                   v-model={formData.code} error={errors.code?.[0]} />
                 <FormItem style={{ paddingTop: '96px' }}>
-                  <Button>登录</Button>
+                  <Button type="submit">登录</Button>
                 </FormItem>
               </Form>
             </div>
