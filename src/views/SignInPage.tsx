@@ -7,8 +7,8 @@ import { Form, FormItem } from '../shared/Form';
 import { http } from '../shared/Http';
 import { Icon } from '../shared/Icon';
 import { validate, hasError } from '../shared/validate';
-import { history } from '../shared/history';
 import s from './SignInPage.module.scss';
+import { useRoute, useRouter } from 'vue-router';
 export const SignInPage = defineComponent({
   setup: (props, context) => {
     const formData = reactive({
@@ -19,6 +19,8 @@ export const SignInPage = defineComponent({
       email: [],
       code: []
     })
+    const router = useRouter()
+    const route = useRoute()
     const refValidationCode = ref<any>()
     const {ref:refDisabled,toggle,on:disabled,off:enable} = useBool(false)
     const onSubmit = async (e: Event) => {
@@ -36,7 +38,8 @@ export const SignInPage = defineComponent({
         const response = await http.post<{jwt:string}>('/session',formData)
           .catch(onError)
           localStorage.setItem('jwt',response.data.jwt)
-          history.push('/')
+          const returnTo = route.query.return_to?.toString()
+          router.push(returnTo || '/')
       }
     }
     const onError = (error:any) => {
@@ -45,7 +48,6 @@ export const SignInPage = defineComponent({
       })
       if(error.response.status === 422) {
         Object.assign(errors,error.response.data.errors)
-        console.log(Object.assign(errors,error.response.data.errors));
         
       }
       
