@@ -1,4 +1,4 @@
-import { defineComponent, PropType, ref, onMounted, reactive } from 'vue';
+import { defineComponent, PropType, ref, onMounted, reactive, watch } from 'vue';
 import { Button } from '../../shared/Button';
 import { FloatButton } from '../../shared/FloatButton';
 import { http } from '../../shared/Http';
@@ -33,11 +33,19 @@ export const ItemSummary = defineComponent({
       hasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count
       page.value += 1 
     }
+
+    watch(()=>[props.startDate,props.endDate],() => {
+      items.value = []
+      hasMore.value = false
+      page.value = 0
+      fetchItems()
+    })
+
     onMounted(fetchItems)
     const itemsBalance = reactive({
       expenses: 0, income: 0,balance: 0
     })
-    onMounted(async () => {
+    const  fetchItemsBalance = async () => {
       if(!props.startDate || !props.endDate) { return }
       const response = await http.get('/items/balance', {
         happen_after: props.startDate,
@@ -46,6 +54,13 @@ export const ItemSummary = defineComponent({
         _mock: 'itemIndexBalance'
       })
       Object.assign(itemsBalance,response.data)
+    }
+    onMounted(fetchItemsBalance)
+    watch(() => [props.startDate,props.endDate],() => {
+      Object.assign(itemsBalance, {
+        expenses: 0, income: 0,balance: 0
+      })
+      fetchItemsBalance()
     })
     return () => (
       <div class={s.wrapper}>
@@ -90,7 +105,6 @@ export const ItemSummary = defineComponent({
             </>) : (
               <div>记录为空</div>
             )}
-        <div class={s.more}>向下滑动加载更多</div>
         <FloatButton iconName='add' />
       </div>
     )
