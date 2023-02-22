@@ -1,4 +1,4 @@
-import { Overlay } from 'vant';
+import { Dialog, Overlay } from 'vant';
 import { defineComponent, PropType, reactive, ref } from 'vue';
 import { Form, FormItem } from '../shared/Form';
 import { OverLayIcon } from '../shared/Overlay';
@@ -61,10 +61,15 @@ export const TimeTabsLayout = defineComponent({
     const refOverlayVisible = ref(false)
     const onSubmitCustomTime = (e: Event) => {
       e.preventDefault()
+      if(tempTime.start === tempTime.end){
+        return Dialog.alert({ message: '请不要设置同一天' })
+      } else if(new Date(tempTime.end).getTime() -new Date(tempTime.start).getTime() > 86400000 * 31){
+        return Dialog.alert({ message: '请不要设置跨度大于31天的日期' })
+      }
       refOverlayVisible.value = false
       Object.assign(customTime,tempTime)
     }
-    const onSelect = (value: string) => {
+    const onSelect = (value: string) => {   
       if (value === '自定义时间') {
         refOverlayVisible.value = true
       }
