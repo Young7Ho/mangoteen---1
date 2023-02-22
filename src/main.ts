@@ -8,6 +8,13 @@ import { fetchMe, mePromise } from './shared/me';
 
 fetchMe()
 
+const whiteList: Record<string, 'exact' | 'startsWith'> = {
+  '/': 'exact',
+  '/items': 'exact',
+  '/welcome': 'startsWith',
+  '/sign_in': 'startsWith',
+}
+
   const router = createRouter ({
     history,
     routes, 

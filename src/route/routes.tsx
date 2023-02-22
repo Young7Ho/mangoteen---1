@@ -8,7 +8,6 @@ import { FirstActions } from '../components/welcome/FirstAction';
 import { SecondActions } from '../components/welcome/SecondAction';
 import { ThirdActions } from '../components/welcome/ThirdActions';
 import { ForthActions } from '../components/welcome/ForthAction';
-import { StartPage } from '../views/StartPage';
 import { ItemList } from '../components/item/ItemList';
 import { ItemCreate } from '../components/item/ItemCreate';
 import { ItemPage } from '../views/ItemPage';
@@ -23,12 +22,11 @@ import { ComingSoon } from '../shared/ComingSoon';
 
 export const routes:RouteRecordRaw[] = [
     { path: '/', redirect: '/welcome' },
-    {path:'/start', component: StartPage},
     {
         path: '/welcome',
         component: Welcome,
         beforeEnter: (to,from,next) => {
-            localStorage.getItem('skipFeature') === 'yes' ? next('/start') : next()
+            localStorage.getItem('skipFeature') === 'yes' ? next('/items') : next()
         },
         children: [
             { path: '', redirect: '/welcome/1'},
