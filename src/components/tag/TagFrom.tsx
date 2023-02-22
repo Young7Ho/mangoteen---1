@@ -18,7 +18,7 @@ export const TagForm = defineComponent({
       id: undefined,
       name: '',
       sign: '',
-      kind: route.query.kind!.toString()
+      kind: route.query.kind
     })
     const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({})
     const onSubmit = async (e: Event) => {
