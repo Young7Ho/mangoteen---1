@@ -19,7 +19,7 @@ export class Time {
     const second = this.date.getSeconds()
     const msecond = this.date.getMilliseconds()
     return pattern.replace(/YYYY/g, year.toString())
-      .replace(/MM/, month.toString().padStart(1, '0'))
+      .replace(/MM/, month.toString().padStart(2, '0'))
       .replace(/DD/, day.toString().padStart(2, '0'))
       .replace(/HH/, hour.toString().padStart(2, '0'))
       .replace(/mm/, minute.toString().padStart(2, '0'))
@@ -40,6 +40,9 @@ export class Time {
   }
   getRaw() {
     return this.date
+  }
+  getTimestamp() {
+    return this.date.getTime()
   }
   add(amount: number, unit: 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond') {
     // return new Time but not change this.date
